@@ -1,1 +1,56 @@
-<!-- here goes your fxml -->
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fhj.swengb.assignments.ttt.abajric.TicTacToeAppController">
+   <children>
+      <AnchorPane fx:id="start_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="750.0">
+         <children>
+            <Label layoutX="115.0" layoutY="14.0" prefHeight="112.0" prefWidth="520.0" text="Tic Tac Toe" textAlignment="CENTER">
+               <font>
+                  <Font name="Bodoni MT" size="96.0" />
+               </font>
+            </Label>
+            <Button layoutX="192.0" layoutY="252.0" mnemonicParsing="false" onAction="#spPane" prefHeight="100.0" prefWidth="350.0" text="Singleplayer">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Button>
+            <Button layoutX="192.0" layoutY="398.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="350.0" text="Multiplayer">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Button>
+            <Separator layoutX="107.0" layoutY="534.0" prefHeight="3.0" prefWidth="520.0" />
+            <Button layoutX="192.0" layoutY="580.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="105.0" text="About">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Button>
+            <Button layoutX="437.0" layoutY="580.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="105.0" text="Exit">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="sp_pane" layoutX="-762.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="750.0">
+         <children>
+            <Label layoutX="115.0" layoutY="44.0" prefHeight="112.0" prefWidth="520.0" text="Singleplayer" textAlignment="CENTER">
+               <font>
+                  <Font name="Bodoni MT" size="96.0" />
+               </font>
+            </Label>
+            <Button layoutX="14.0" layoutY="68.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" text="BACK" textAlignment="CENTER">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
