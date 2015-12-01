@@ -63,7 +63,7 @@ object TicTacToe {
     * creates an empty tic tac toe game
     * @return
     */
-  def apply(): TicTacToe = ???
+  def apply(): TicTacToe = TicTacToe(Map())
 
   /**
     * For a given tic tac toe game, this function applies all moves to the game.
