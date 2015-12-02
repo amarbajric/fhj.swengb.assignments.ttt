@@ -55,21 +55,28 @@ class TicTacToeAppController extends TicTacToeApp {
 
 
 
-  def paneAnimation(Pane: AnchorPane, slide: Boolean, xMitte:Int =0, yMitte:Int = 400): Unit = {
+  def animationOut(Pane: AnchorPane): Unit = {
 
-    val end = 1200
     val path: Path = new Path()
 
-    slide match {
-      case yes if slide == true => {
-        path.getElements.add(new MoveTo(xMitte, yMitte))
-        path.getElements().add(new CubicCurveTo(xMitte, yMitte, xMitte, yMitte, xMitte + end, yMitte))
-      }
-      case no if slide == false => {
-        path.getElements.add(new MoveTo(xMitte + end, yMitte))
-        path.getElements().add(new CubicCurveTo(xMitte, yMitte, xMitte, yMitte, xMitte, yMitte))
-      }
-    }
+    path.getElements.add(new MoveTo(300,400))
+    path.getElements().add(new CubicCurveTo(350, 400, 500, 400,1000,400))
+
+    val pathTrans: PathTransition = new PathTransition ()
+    pathTrans.setDuration (new Duration(350) )
+    pathTrans.setNode(Pane)
+    pathTrans.setPath(path)
+    pathTrans.setAutoReverse(false)
+    pathTrans.play()
+  }
+
+  def animationIn(Pane: AnchorPane): Unit = {
+
+    val path: Path = new Path()
+
+    path.getElements.add(new MoveTo(1000,400))
+    path.getElements().add(new CubicCurveTo(500, 400, 350, 400,300,400))
+
     val pathTrans: PathTransition = new PathTransition ()
     pathTrans.setDuration (new Duration(350) )
     pathTrans.setNode(Pane)
@@ -83,18 +90,17 @@ class TicTacToeAppController extends TicTacToeApp {
 
 
   def spPane(): Unit = {
-    paneAnimation(start_pane,false,300)
-    paneAnimation(sp_pane,true)
-    start_pane.setVisible(false)
+    animationIn(start_pane)
+    animationOut(sp_pane)
+
 
 
   }
 
 
   def spback(): Unit = {
-    paneAnimation(start_pane,true,100)
-    paneAnimation(sp_pane,false)
-    //start_pane.setVisible(true)
+
+    animationOut(start_pane)
   }
 
 
