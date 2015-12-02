@@ -85,13 +85,17 @@ class TicTacToeAppController extends TicTacToeApp {
   def spPane(): Unit = {
     paneAnimation(start_pane,false,300)
     paneAnimation(sp_pane,true)
+    start_pane.setVisible(false)
 
 
   }
 
 
-
-
+  def spback(): Unit = {
+    paneAnimation(start_pane,true,100)
+    paneAnimation(sp_pane,false)
+    //start_pane.setVisible(true)
+  }
 
 
 

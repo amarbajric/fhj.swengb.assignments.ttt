@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fhj.swengb.assignments.ttt.abajric.TicTacToeAppController">
    <children>
       <AnchorPane fx:id="start_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="750.0">
@@ -38,14 +37,14 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="sp_pane" layoutX="-762.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="750.0">
+      <AnchorPane fx:id="sp_pane" layoutX="-778.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="750.0">
          <children>
             <Label layoutX="115.0" layoutY="44.0" prefHeight="112.0" prefWidth="520.0" text="Singleplayer" textAlignment="CENTER">
                <font>
                   <Font name="Bodoni MT" size="96.0" />
                </font>
             </Label>
-            <Button layoutX="14.0" layoutY="68.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" text="BACK" textAlignment="CENTER">
+            <Button layoutX="14.0" layoutY="68.0" mnemonicParsing="false" onAction="#spback" prefHeight="70.0" prefWidth="70.0" text="BACK" textAlignment="CENTER">
                <font>
                   <Font size="17.0" />
                </font>
