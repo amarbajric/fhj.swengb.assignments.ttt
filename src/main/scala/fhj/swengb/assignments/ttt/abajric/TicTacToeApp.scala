@@ -90,8 +90,8 @@ class TicTacToeAppController extends TicTacToeApp {
 
 
   def spPane(): Unit = {
-    animationIn(start_pane)
-    animationOut(sp_pane)
+    animationOut(start_pane)
+    animationIn(sp_pane)
 
 
 
