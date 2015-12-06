@@ -1,4 +1,4 @@
-package fhj.swengb.assignments.ttt.rladstaetter
+package fhj.swengb.assignments.ttt.abajric
 
 import org.junit.Assert._
 import org.junit.Test
