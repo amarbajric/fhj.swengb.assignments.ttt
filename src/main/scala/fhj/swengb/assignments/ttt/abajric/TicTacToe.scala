@@ -62,17 +62,17 @@ object TicTacToe {
 
   def main(args: Array[String]) {
 
-    val t = TicTacToe().turn(TopLeft, PlayerA).turn(TopRight, PlayerA).turn(TopCenter, PlayerA)
+    val t = TicTacToe().turn(BottomRight, PlayerA).turn(BottomCenter,PlayerB).turn(BottomLeft,PlayerB).turn(TopRight,PlayerA).turn(TopLeft,PlayerA).turn(MiddleLeft,PlayerB).turn(MiddleCenter,PlayerA)
     // val t = TicTacToe().turn(TopRight, PlayerA).turn(MiddleRight, PlayerA).turn(BottomRight, PlayerA)
 
     //test output
     print(t.asString())
     println("RemainingMoves: " + t.remainingMoves)
-    println(t.remainingMoves.size)
+    println("Number of remaining moves: " + t.remainingMoves.size)
 
     //test remainingmoves
-     println(t.gameOver)
-    // println(t.winner)
+     println("Is the game over? " + t.gameOver)
+    println("Winner and his moves: " + t.winner)
 
   }
 
@@ -163,23 +163,49 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
     *
     * The game is over if either of a player wins or there is a draw.
     */
-  val winningScenarios = Set((TopLeft, TopCenter, TopRight), (MiddleLeft, MiddleCenter, MiddleRight), (BottomLeft, BottomCenter, BottomRight),
-    (TopLeft, MiddleCenter, BottomRight), (TopRight, MiddleCenter, BottomLeft), (TopCenter, MiddleCenter, BottomCenter), (TopLeft, MiddleLeft, BottomLeft), (TopRight, MiddleRight, BottomRight))
+  val winningScenarios: List[Set[TMove]] = List(Set(TopLeft, TopCenter, TopRight), Set(MiddleLeft, MiddleCenter, MiddleRight), Set(BottomLeft, BottomCenter, BottomRight),
+    Set(TopLeft, MiddleCenter, BottomRight), Set(TopRight, MiddleCenter, BottomLeft), Set(TopCenter, MiddleCenter, BottomCenter), Set(TopLeft, MiddleLeft, BottomLeft),
+    Set(TopRight, MiddleRight, BottomRight))
+
+  def checkIfWon(player: Player): Boolean = {
+
+    if(winningScenarios.head.subsetOf(moveHistory.filter(_._2 == player).keySet))
+      true
+    else if(winningScenarios(1).subsetOf(moveHistory.filter(_._2 == player).keySet))
+      true
+    else if(winningScenarios(2).subsetOf(moveHistory.filter(_._2 == player).keySet))
+      true
+    else if(winningScenarios(3).subsetOf(moveHistory.filter(_._2 == player).keySet))
+      true
+    else if(winningScenarios(4).subsetOf(moveHistory.filter(_._2 == player).keySet))
+      true
+    else if(winningScenarios(5).subsetOf(moveHistory.filter(_._2 == player).keySet))
+      true
+    else if(winningScenarios(6).subsetOf(moveHistory.filter(_._2 == player).keySet))
+      true
+    else if(winningScenarios(7).subsetOf(moveHistory.filter(_._2 == player).keySet))
+      true
+    else
+      false
+  }
 
 
-  val gameOver: Boolean = ???
+  val gameOver: Boolean = {
+
+    if(winner != None)
+      true
+    else
+      false
+  }
 
 
-
-
-
-    /**
+  /**
     * the moves which are still to be played on this tic tac toe.
     */
   val tMoves: Set[TMove] = Set(TopLeft, TopCenter, TopRight, MiddleLeft, MiddleCenter, MiddleRight, BottomLeft, BottomCenter, BottomRight)
-  val moveHistoryActual = moveHistory.filter(x => x._2 != PlayerA || x._2 != PlayerB).keySet
+  val fieldsNotSet = moveHistory.filter(x => x._2 != PlayerA || x._2 != PlayerB).keySet
 
-  val remainingMoves: Set[TMove] = tMoves.diff(moveHistoryActual)
+  val remainingMoves: Set[TMove] = tMoves.diff(fieldsNotSet)
 
 
   /**
@@ -194,7 +220,14 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
     *
     * The set of moves contains all moves which contributed to the result.
     */
-  // def winner: Option[(Player, Set[TMove])] = ???
+   def winner: Option[(Player, Set[TMove])] = {
+
+    if(checkIfWon(PlayerA))
+      Some(PlayerA,moveHistory.filter(_._2 == PlayerA).keySet)
+    else if(checkIfWon(PlayerB))
+      Some(PlayerB,moveHistory.filter(_._2 == PlayerB).keySet)
+    else None
+  }
 
   /**
     * returns a copy of the current game, but with the move applied to the tic tac toe game.

@@ -8,7 +8,7 @@ import org.junit.Test
   */
 
 
-/*
+
 class TicTacToeTest {
 
   /**
@@ -49,4 +49,3 @@ class TicTacToeTest {
 
 }
 
-*/
