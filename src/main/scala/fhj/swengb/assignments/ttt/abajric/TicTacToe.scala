@@ -62,7 +62,7 @@ object TicTacToe {
 
   def main(args: Array[String]) {
 
-    val t = TicTacToe().turn(TopLeft, PlayerA).turn(TopCenter, PlayerA).turn(TopRight, PlayerA)
+    val t = TicTacToe().turn(TopLeft, PlayerA).turn(TopRight, PlayerA).turn(TopCenter, PlayerA)
     // val t = TicTacToe().turn(TopRight, PlayerA).turn(MiddleRight, PlayerA).turn(BottomRight, PlayerA)
 
     //test output
@@ -71,13 +71,10 @@ object TicTacToe {
     println(t.remainingMoves.size)
 
     //test remainingmoves
-   // println(t.gameOver)
-   // println(t.winner)
-
+     println(t.gameOver)
+    // println(t.winner)
 
   }
-
-
 
 
   /**
@@ -98,7 +95,6 @@ object TicTacToe {
   def play(t: TicTacToe, moves: Seq[TMove]): TicTacToe = ???
 
 
-
   /**
     * creates all possible games.
     *
@@ -106,15 +102,14 @@ object TicTacToe {
     */
   def mkGames(): Map[Seq[TMove], TicTacToe] = ???
 
+  /**
+    * Models the well known tic tac toe game.
+    *
+    * The map holds the information which player controls which field.
+    *
+    * The nextplayer parameter defines which player makes the next move.
+    */
 }
-
-/**
-  * Models the well known tic tac toe game.
-  *
-  * The map holds the information which player controls which field.
-  *
-  * The nextplayer parameter defines which player makes the next move.
-  */
 case class TicTacToe(moveHistory: Map[TMove, Player],
                      nextPlayer: Player = PlayerA) {
 
@@ -134,12 +129,12 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
     */
   def asString(): String = {
 
-    val indexMap = Map (0->16, 1->20, 2->24,
-      3->44, 4->48, 5->52,
-      6->72, 7->76, 8->80)
+    val indexMap = Map(0 -> 16, 1 -> 20, 2 -> 24,
+      3 -> 44, 4 -> 48, 5 -> 52,
+      6 -> 72, 7 -> 76, 8 -> 80)
 
     var board: String =
-        "|---|---|---|\n" +
+      "|---|---|---|\n" +
         "|   |   |   |\n" +
         "|---|---|---|\n" +
         "|   |   |   |\n" +
@@ -148,20 +143,19 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
         "|---|---|---|\n"
 
 
-    for((k,v) <- moveHistory){
-      if(v == PlayerA){
-        board = board.updated(indexMap(k.idx),"O").mkString
+    for ((k, v) <- moveHistory) {
+      if (v == PlayerA) {
+        board = board.updated(indexMap(k.idx), "O").mkString
       }
-      else if(v == PlayerB){
-        board = board.updated(indexMap(k.idx),"X").mkString
+      else if (v == PlayerB) {
+        board = board.updated(indexMap(k.idx), "X").mkString
       }
-      else{
-        board = board.updated(indexMap(k.idx)," ").mkString
+      else {
+        board = board.updated(indexMap(k.idx), " ").mkString
       }
     }
     board
   }
-
 
 
   /**
@@ -169,9 +163,17 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
     *
     * The game is over if either of a player wins or there is a draw.
     */
-//   val gameOver : Boolean = ???
+  val winningScenarios = Set((TopLeft, TopCenter, TopRight), (MiddleLeft, MiddleCenter, MiddleRight), (BottomLeft, BottomCenter, BottomRight),
+    (TopLeft, MiddleCenter, BottomRight), (TopRight, MiddleCenter, BottomLeft), (TopCenter, MiddleCenter, BottomCenter), (TopLeft, MiddleLeft, BottomLeft), (TopRight, MiddleRight, BottomRight))
 
-  /**
+
+  val gameOver: Boolean = ???
+
+
+
+
+
+    /**
     * the moves which are still to be played on this tic tac toe.
     */
   val tMoves: Set[TMove] = Set(TopLeft, TopCenter, TopRight, MiddleLeft, MiddleCenter, MiddleRight, BottomLeft, BottomCenter, BottomRight)
@@ -185,29 +187,34 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
     * games which can be derived by making the next turn. that means one of the
     * possible turns is taken and added to the set.
     */
-   lazy val nextGames: Set[TicTacToe] = ???
+  lazy val nextGames: Set[TicTacToe] = ???
 
   /**
     * Either there is no winner, or PlayerA or PlayerB won the game.
     *
     * The set of moves contains all moves which contributed to the result.
     */
- // def winner: Option[(Player, Set[TMove])] = ???
+  // def winner: Option[(Player, Set[TMove])] = ???
 
   /**
     * returns a copy of the current game, but with the move applied to the tic tac toe game.
     *
-    * @param move to be played
+    * @param move   to be played
     * @param player the player
     * @return
     */
   def turn(p: TMove, player: Player): TicTacToe = {
 
-    if (!moveHistory.get(p).contains(PlayerA) || moveHistory.get(p).contains(PlayerB)){
-      TicTacToe((moveHistory + (p -> player)),player)
+    val nextP = {
+      if (player == PlayerA) PlayerB
+      else PlayerA
+    }
+
+    if (!moveHistory.get(p).contains(PlayerA) || moveHistory.get(p).contains(PlayerB)) {
+      TicTacToe((moveHistory + (p -> player)), nextP)
     }
     else
-      TicTacToe(moveHistory,player)
+      TicTacToe(moveHistory, player)
   }
 
 }
