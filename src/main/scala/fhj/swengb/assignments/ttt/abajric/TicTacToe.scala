@@ -67,10 +67,10 @@ object TicTacToe {
 
     //test output
     print(t.asString())
-println(t.remainingMoves)
+    println("RemainingMoves: " + t.remainingMoves)
+    println(t.remainingMoves.size)
 
     //test remainingmoves
-    //println(t.remainingMoves.size)
    // println(t.gameOver)
    // println(t.winner)
 
