@@ -49,7 +49,6 @@ class TicTacToeApp extends javafx.application.Application {
 }
 
 
-
 class TicTacToeAppController extends Initializable {
 
   @FXML var main_pane: Pane = _
@@ -112,31 +111,34 @@ class TicTacToeAppController extends Initializable {
       event.getSource match {
         case onClick: ImageView => {
 
-          if(newGame.nextPlayer == PlayerA) {
+          if(newGame.gameOver)
+            gameOver()
+
+          else if(newGame.nextPlayer == PlayerA) {
             onClick match {
-              case tl: ImageView if tl == iv_topleft && newGame.remainingMoves.contains(TopLeft)  => setPicture(iv_topleft,true); newGame = newGame.turn(TopLeft,newGame.nextPlayer); gameOver()
-              case tc: ImageView if tc == iv_topcenter && newGame.remainingMoves.contains(TopCenter) => setPicture(iv_topcenter,true); newGame =newGame.turn(TopCenter,newGame.nextPlayer) ; gameOver()
-              case tr: ImageView if tr == iv_topright && newGame.remainingMoves.contains(TopRight) => setPicture(iv_topright,true); newGame =newGame.turn(TopRight,newGame.nextPlayer); gameOver()
-              case ml: ImageView if ml == iv_middleleft && newGame.remainingMoves.contains(MiddleLeft) => setPicture(iv_middleleft,true); newGame =newGame.turn(MiddleLeft,newGame.nextPlayer) ; gameOver()
-              case mc: ImageView if mc == iv_middlecenter && newGame.remainingMoves.contains(MiddleCenter) => setPicture(iv_middlecenter,true); newGame =newGame.turn(MiddleCenter,newGame.nextPlayer); gameOver()
-              case mr: ImageView if mr == iv_middleright && newGame.remainingMoves.contains(MiddleRight) => setPicture(iv_middleright,true); newGame =newGame.turn(MiddleRight,newGame.nextPlayer); gameOver()
-              case bl: ImageView if bl == iv_bottomleft && newGame.remainingMoves.contains(BottomLeft) => setPicture(iv_bottomleft,true); newGame =newGame.turn(BottomLeft,newGame.nextPlayer); gameOver()
-              case bc: ImageView if bc == iv_bottomcenter && newGame.remainingMoves.contains(BottomCenter) => setPicture(iv_bottomcenter,true); newGame =newGame.turn(BottomCenter,newGame.nextPlayer); gameOver()
-              case br: ImageView if br == iv_bottomright && newGame.remainingMoves.contains(BottomRight) => setPicture(iv_bottomright,true); newGame = newGame.turn(BottomRight,newGame.nextPlayer); gameOver()
+              case tl if tl == iv_topleft && newGame.remainingMoves.contains(TopLeft)  => setPicture(iv_topleft,true); newGame = newGame.turn(TopLeft,newGame.nextPlayer); gameOver()
+              case tc if tc == iv_topcenter && newGame.remainingMoves.contains(TopCenter) => setPicture(iv_topcenter,true); newGame =newGame.turn(TopCenter,newGame.nextPlayer) ; gameOver()
+              case tr if tr == iv_topright && newGame.remainingMoves.contains(TopRight) => setPicture(iv_topright,true); newGame =newGame.turn(TopRight,newGame.nextPlayer); gameOver()
+              case ml if ml == iv_middleleft && newGame.remainingMoves.contains(MiddleLeft) => setPicture(iv_middleleft,true); newGame =newGame.turn(MiddleLeft,newGame.nextPlayer) ; gameOver()
+              case mc if mc == iv_middlecenter && newGame.remainingMoves.contains(MiddleCenter) => setPicture(iv_middlecenter,true); newGame =newGame.turn(MiddleCenter,newGame.nextPlayer); gameOver()
+              case mr if mr == iv_middleright && newGame.remainingMoves.contains(MiddleRight) => setPicture(iv_middleright,true); newGame =newGame.turn(MiddleRight,newGame.nextPlayer); gameOver()
+              case bl if bl == iv_bottomleft && newGame.remainingMoves.contains(BottomLeft) => setPicture(iv_bottomleft,true); newGame =newGame.turn(BottomLeft,newGame.nextPlayer); gameOver()
+              case bc if bc == iv_bottomcenter && newGame.remainingMoves.contains(BottomCenter) => setPicture(iv_bottomcenter,true); newGame =newGame.turn(BottomCenter,newGame.nextPlayer); gameOver()
+              case br if br == iv_bottomright && newGame.remainingMoves.contains(BottomRight) => setPicture(iv_bottomright,true); newGame = newGame.turn(BottomRight,newGame.nextPlayer); gameOver()
               case _ => log_msg.setText("Field already set!")
             }
           }
           else if(newGame.nextPlayer == PlayerB) {
             onClick match {
-              case tl: ImageView if tl == iv_topleft && newGame.remainingMoves.contains(TopLeft)  => setPicture(iv_topleft,false); newGame =newGame.turn(TopLeft,newGame.nextPlayer); gameOver()
-              case tc: ImageView if tc == iv_topcenter && newGame.remainingMoves.contains(TopCenter) => setPicture(iv_topcenter,false);newGame = newGame.turn(TopCenter,newGame.nextPlayer); gameOver()
-              case tr: ImageView if tr == iv_topright && newGame.remainingMoves.contains(TopRight) => setPicture(iv_topright,false); newGame =newGame.turn(TopRight,newGame.nextPlayer); gameOver()
-              case ml: ImageView if ml == iv_middleleft && newGame.remainingMoves.contains(MiddleLeft) => setPicture(iv_middleleft,false); newGame = newGame.turn(MiddleLeft,newGame.nextPlayer); gameOver()
-              case mc: ImageView if mc == iv_middlecenter && newGame.remainingMoves.contains(MiddleCenter) => setPicture(iv_middlecenter,false); newGame =newGame.turn(MiddleCenter,newGame.nextPlayer); gameOver()
-              case mr: ImageView if mr == iv_middleright && newGame.remainingMoves.contains(MiddleRight) => setPicture(iv_middleright,false); newGame =newGame.turn(MiddleRight,newGame.nextPlayer); gameOver()
-              case bl: ImageView if bl == iv_bottomleft && newGame.remainingMoves.contains(BottomLeft) => setPicture(iv_bottomleft,false); newGame =newGame.turn(BottomLeft,newGame.nextPlayer); gameOver()
-              case bc: ImageView if bc == iv_bottomcenter && newGame.remainingMoves.contains(BottomCenter) => setPicture(iv_bottomcenter,false); newGame =newGame.turn(BottomCenter,newGame.nextPlayer); gameOver()
-              case br: ImageView if br == iv_bottomright && newGame.remainingMoves.contains(BottomRight) => setPicture(iv_bottomright,false); newGame = newGame.turn(BottomRight,newGame.nextPlayer); gameOver()
+              case tl if tl == iv_topleft && newGame.remainingMoves.contains(TopLeft)  => setPicture(iv_topleft,false); newGame =newGame.turn(TopLeft,newGame.nextPlayer); gameOver()
+              case tc if tc == iv_topcenter && newGame.remainingMoves.contains(TopCenter) => setPicture(iv_topcenter,false);newGame = newGame.turn(TopCenter,newGame.nextPlayer); gameOver()
+              case tr if tr == iv_topright && newGame.remainingMoves.contains(TopRight) => setPicture(iv_topright,false); newGame =newGame.turn(TopRight,newGame.nextPlayer); gameOver()
+              case ml if ml == iv_middleleft && newGame.remainingMoves.contains(MiddleLeft) => setPicture(iv_middleleft,false); newGame = newGame.turn(MiddleLeft,newGame.nextPlayer); gameOver()
+              case mc if mc == iv_middlecenter && newGame.remainingMoves.contains(MiddleCenter) => setPicture(iv_middlecenter,false); newGame =newGame.turn(MiddleCenter,newGame.nextPlayer); gameOver()
+              case mr if mr == iv_middleright && newGame.remainingMoves.contains(MiddleRight) => setPicture(iv_middleright,false); newGame =newGame.turn(MiddleRight,newGame.nextPlayer); gameOver()
+              case bl if bl == iv_bottomleft && newGame.remainingMoves.contains(BottomLeft) => setPicture(iv_bottomleft,false); newGame =newGame.turn(BottomLeft,newGame.nextPlayer); gameOver()
+              case bc if bc == iv_bottomcenter && newGame.remainingMoves.contains(BottomCenter) => setPicture(iv_bottomcenter,false); newGame =newGame.turn(BottomCenter,newGame.nextPlayer); gameOver()
+              case br if br == iv_bottomright && newGame.remainingMoves.contains(BottomRight) => setPicture(iv_bottomright,false); newGame = newGame.turn(BottomRight,newGame.nextPlayer); gameOver()
               case _ => log_msg.setText("Field already set!")
             }
 
@@ -144,7 +146,6 @@ class TicTacToeAppController extends Initializable {
         }
         case clickNewGame: Button => if (clickNewGame == btn_newGame){
            newGame = TicTacToe.apply()
-          log_msg.setText("Loading new Game...")
           grid_pane.setDisable(false)
           iv_bottomcenter.setImage(null)
           iv_bottomleft.setImage(null)
@@ -165,7 +166,11 @@ class TicTacToeAppController extends Initializable {
 
   def gameOver(): Unit = {
     if (newGame.gameOver){
-      if(newGame.winner.get._1.equals(PlayerA)) {
+      if(!newGame.checkIfWon(PlayerA) && !newGame.checkIfWon(PlayerB)) {
+        log_msg.setText("It's a draw!")
+        grid_pane.setDisable(true)
+      }
+      else if(newGame.winner.get._1.equals(PlayerA)) {
         log_msg.setText("PlayerA won")
         grid_pane.setDisable(true)
       }
@@ -173,9 +178,7 @@ class TicTacToeAppController extends Initializable {
         log_msg.setText("PlayerB won")
         grid_pane.setDisable(true)
       }
-      else if(!newGame.winner.get._1.equals(PlayerA) && !newGame.winner.get._1.equals(PlayerB) && newGame.remainingMoves.isEmpty)
-        log_msg.setText("It's a draw!")
-        grid_pane.setDisable(true)
+
     }
   }
 
