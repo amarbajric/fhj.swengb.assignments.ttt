@@ -85,7 +85,7 @@ object TicTacToe {
     *
     * @return
     */
-  def apply(): TicTacToe = TicTacToe(Map())
+  def apply(): TicTacToe = TicTacToe(Map(),PlayerA)
 
   /**
     * For a given tic tac toe game, this function applies all moves to the game.
@@ -241,16 +241,17 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
     */
   def turn(p: TMove, player: Player): TicTacToe = {
 
-    val nextP = {
-      if (player == PlayerA) PlayerB
-      else PlayerA
-    }
 
     if (!moveHistory.get(p).contains(PlayerA) || moveHistory.get(p).contains(PlayerB)) {
-      TicTacToe(moveHistory + (p -> player), nextP)
+      if (player.equals(PlayerA))
+        TicTacToe(this.moveHistory + (p -> player), PlayerB)
+      else
+        TicTacToe(this.moveHistory + (p -> player), PlayerA)
+
     }
-    else
-      TicTacToe(moveHistory, player)
+    else{
+      TicTacToe(this.moveHistory, nextPlayer)
+    }
   }
 
 }
