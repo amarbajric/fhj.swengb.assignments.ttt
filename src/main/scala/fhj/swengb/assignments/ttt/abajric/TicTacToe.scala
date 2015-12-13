@@ -247,7 +247,7 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
     }
 
     if (!moveHistory.get(p).contains(PlayerA) || moveHistory.get(p).contains(PlayerB)) {
-      TicTacToe((moveHistory + (p -> player)), nextP)
+      TicTacToe(moveHistory + (p -> player), nextP)
     }
     else
       TicTacToe(moveHistory, player)
