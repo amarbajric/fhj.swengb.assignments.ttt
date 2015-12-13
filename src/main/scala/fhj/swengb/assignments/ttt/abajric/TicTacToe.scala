@@ -62,8 +62,11 @@ object TicTacToe {
 
   def main(args: Array[String]) {
 
-    val t = TicTacToe().turn(BottomRight, PlayerA).turn(BottomCenter,PlayerB).turn(BottomLeft,PlayerB).turn(TopRight,PlayerA).turn(TopLeft,PlayerA).turn(MiddleLeft,PlayerB).turn(MiddleCenter,PlayerA)
-    // val t = TicTacToe().turn(TopRight, PlayerA).turn(MiddleRight, PlayerA).turn(BottomRight, PlayerA)
+    val t = TicTacToe().turn(BottomRight, PlayerA).turn(BottomCenter,PlayerB).turn(BottomLeft, PlayerA).turn(MiddleCenter,PlayerA).turn(MiddleRight,PlayerB)
+      .turn(MiddleLeft,PlayerB).turn(TopCenter,PlayerA).turn(TopRight,PlayerB).turn(TopLeft,PlayerB)
+
+
+
 
     //test output
     print(t.asString())
@@ -71,8 +74,8 @@ object TicTacToe {
     println("Number of remaining moves: " + t.remainingMoves.size)
 
     //test remainingmoves
-     println("Is the game over? " + t.gameOver)
-    println("Winner and his moves: " + t.winner)
+    println("Is the game over? " + t.gameOver)
+    println("Winner is: " + t.winner.getOrElse(None))
 
   }
 
@@ -127,6 +130,7 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
     *
     * @return
     */
+
   def asString(): String = {
 
     val indexMap = Map(0 -> 16, 1 -> 20, 2 -> 24,
@@ -167,6 +171,7 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
     Set(TopLeft, MiddleCenter, BottomRight), Set(TopRight, MiddleCenter, BottomLeft), Set(TopCenter, MiddleCenter, BottomCenter), Set(TopLeft, MiddleLeft, BottomLeft),
     Set(TopRight, MiddleRight, BottomRight))
 
+
   def checkIfWon(player: Player): Boolean = {
 
     if(winningScenarios.head.subsetOf(moveHistory.filter(_._2 == player).keySet))
@@ -189,16 +194,6 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
       false
   }
 
-
-  val gameOver: Boolean = {
-
-    if(winner != None)
-      true
-    else
-      false
-  }
-
-
   /**
     * the moves which are still to be played on this tic tac toe.
     */
@@ -206,6 +201,14 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
   val fieldsNotSet = moveHistory.filter(x => x._2 != PlayerA || x._2 != PlayerB).keySet
 
   val remainingMoves: Set[TMove] = tMoves.diff(fieldsNotSet)
+
+
+
+  val gameOver: Boolean = true match {
+    case gameEnd => winner.isDefined || remainingMoves.isEmpty
+    case _ => false
+  }
+
 
 
   /**
