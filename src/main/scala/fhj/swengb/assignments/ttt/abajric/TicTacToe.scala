@@ -57,6 +57,7 @@ case object PlayerA extends Player
 
 case object PlayerB extends Player
 
+
 object TicTacToe {
 
 
@@ -64,9 +65,6 @@ object TicTacToe {
 
     val t = TicTacToe().turn(BottomRight, PlayerA).turn(BottomCenter,PlayerB).turn(BottomLeft, PlayerA).turn(MiddleCenter,PlayerA).turn(MiddleRight,PlayerB)
       .turn(MiddleLeft,PlayerB).turn(TopCenter,PlayerA).turn(TopRight,PlayerB).turn(TopLeft,PlayerB)
-
-
-
 
     //test output
     print(t.asString())
@@ -76,7 +74,7 @@ object TicTacToe {
     //test remainingmoves
     println("Is the game over? " + t.gameOver)
     println("Winner is: " + t.winner.getOrElse(None))
-    println(t.moveHistory.get(TopCenter))
+
   }
 
 
@@ -243,6 +241,7 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
 
     //the first if checks if the field where the turn wants to set is empty and wheter Player A nor Player B has set anything
     //VARIANT2 : if(remainingmoves.contains(p)) {} --> checks if the move is still available
+    //VARIANT3 : if(!moveHistory.contains(p)) {} --> -"-
     if (!moveHistory.get(p).contains(PlayerA) || !moveHistory.get(p).contains(PlayerB)) {
       if (player.equals(PlayerA))
         TicTacToe(this.moveHistory + (p -> player), PlayerB)
