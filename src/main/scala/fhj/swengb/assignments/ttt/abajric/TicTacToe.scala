@@ -106,6 +106,7 @@ object TicTacToe {
     * @return
     */
   //needs to implement with a permutation of both lists.... possible games are => 3^9 games (PlayerA,PlayerB,Blank) with (TMoves) = 9
+  // replace maybe the "tMoves" with remainingMoves so that only those are computed which are still available
   def mkGames(): Map[Seq[TMove], TicTacToe] = ??? /*  {
 
     val tMoves: Seq[TMove] = Seq(TopLeft, TopCenter, TopRight, MiddleLeft, MiddleCenter, MiddleRight, BottomLeft, BottomCenter, BottomRight)
