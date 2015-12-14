@@ -1,5 +1,7 @@
 package fhj.swengb.assignments.ttt.abajric
 
+import java.io
+
 import scala.collection.Set
 
 /**
@@ -57,6 +59,8 @@ case object PlayerA extends Player
 
 case object PlayerB extends Player
 
+case object Blank extends Player
+
 
 object TicTacToe {
 
@@ -101,7 +105,16 @@ object TicTacToe {
     *
     * @return
     */
-  def mkGames(): Map[Seq[TMove], TicTacToe] = ???
+  //needs to implement with a permutation of both lists.... possible games are => 3^9 games (PlayerA,PlayerB,Blank) with (TMoves) = 9
+  def mkGames(): Map[Seq[TMove], TicTacToe] = ??? /*  {
+
+    val tMoves: Seq[TMove] = Seq(TopLeft, TopCenter, TopRight, MiddleLeft, MiddleCenter, MiddleRight, BottomLeft, BottomCenter, BottomRight)
+    val setters: Seq[Product with Serializable] = Seq(PlayerA,PlayerB,None)
+    def prod(lst: Seq[TMove], n: Int) = List.fill(n)(lst).flatten.combinations(n).flatMap(_.permutations)
+    val possibleGames: Iterator[Seq[(Product with Serializable, TMove)]] = prod(tMoves,setters.size).map(setters.zip(_))
+    // possibleGames.length => 19683
+  }
+  */
 
   /**
     * Models the well known tic tac toe game.
