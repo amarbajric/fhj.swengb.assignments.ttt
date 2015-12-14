@@ -76,7 +76,7 @@ object TicTacToe {
     //test remainingmoves
     println("Is the game over? " + t.gameOver)
     println("Winner is: " + t.winner.getOrElse(None))
-
+    println(t.moveHistory.get(TopCenter))
   }
 
 
@@ -241,14 +241,16 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
     */
   def turn(p: TMove, player: Player): TicTacToe = {
 
-
-    if (!moveHistory.get(p).contains(PlayerA) || moveHistory.get(p).contains(PlayerB)) {
+    //the first if checks if the field where the turn wants to set is empty and wheter Player A nor Player B has set anything
+    //VARIANT2 : if(remainingmoves.contains(p)) {} --> checks if the move is still available
+    if (!moveHistory.get(p).contains(PlayerA) || !moveHistory.get(p).contains(PlayerB)) {
       if (player.equals(PlayerA))
         TicTacToe(this.moveHistory + (p -> player), PlayerB)
       else
         TicTacToe(this.moveHistory + (p -> player), PlayerA)
 
     }
+      //case: if the field is already set, no move is added to the movehistory
     else{
       TicTacToe(this.moveHistory, nextPlayer)
     }
