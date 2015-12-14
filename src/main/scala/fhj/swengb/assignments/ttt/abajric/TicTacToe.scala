@@ -67,8 +67,7 @@ object TicTacToe {
 
   def main(args: Array[String]) {
 
-    val t = TicTacToe().turn(BottomRight, PlayerA).turn(BottomCenter,PlayerB).turn(BottomLeft, PlayerA).turn(MiddleCenter,PlayerA).turn(MiddleRight,PlayerB)
-      .turn(MiddleLeft,PlayerB).turn(TopCenter,PlayerA).turn(TopRight,PlayerB).turn(TopLeft,PlayerB)
+    val t: TicTacToe = TicTacToe().turn(BottomRight, PlayerA)
 
     //test output
     print(t.asString())
@@ -78,6 +77,7 @@ object TicTacToe {
     //test remainingmoves
     println("Is the game over? " + t.gameOver)
     println("Winner is: " + t.winner.getOrElse(None))
+    println(t.hVal)
 
   }
 
@@ -127,6 +127,13 @@ object TicTacToe {
 }
 case class TicTacToe(moveHistory: Map[TMove, Player],
                      nextPlayer: Player = PlayerA) {
+
+
+
+  def hVal = {
+    if(TicTacToe().nextPlayer == PlayerA) moveHistory.filter(_._2 == PlayerA).keySet.size - moveHistory.filter(_._2 == PlayerB).keySet.size
+    else moveHistory.filter(_._2 == PlayerB).keySet.size - moveHistory.filter(_._2 == PlayerA).keySet.size
+  }
 
 
   /**
