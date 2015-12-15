@@ -37,8 +37,19 @@
             <ImageView fx:id="iv_bottomright" fitHeight="206.0" fitWidth="206.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button fx:id="btn_newGame" layoutX="804.0" layoutY="115.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="113.0" text="New Game (1v1)" />
+      <Button fx:id="btn_newGame" layoutX="701.0" layoutY="209.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="123.0" text="New Game (1v1)" />
       <ToggleButton fx:id="switch_button" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Switch Design" />
-      <Label fx:id="log_msg" layoutX="766.0" layoutY="661.0" prefHeight="25.0" prefWidth="167.0" />
+      <Label fx:id="log_msg" alignment="CENTER" layoutX="651.0" layoutY="112.0" prefHeight="53.0" prefWidth="393.0">
+         <font>
+            <Font size="21.0" />
+         </font></Label>
+      <Button fx:id="btn_newGame_sp" disable="true" layoutX="873.0" layoutY="209.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="123.0" text="New Game (vs. Bot)" />
+      <ImageView fx:id="image_view_p1" fitHeight="40.0" fitWidth="40.0" layoutX="862.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="image_view_p2" fitHeight="40.0" fitWidth="40.0" layoutX="867.0" layoutY="391.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="text_field_p1" layoutX="701.0" layoutY="350.0" promptText="PlayerA Name" />
+      <Separator layoutX="651.0" layoutY="179.0" prefHeight="10.0" prefWidth="393.0" />
+      <Separator layoutX="653.0" layoutY="317.0" prefHeight="0.0" prefWidth="393.0" />
+      <TextField fx:id="text_field_p2" layoutX="701.0" layoutY="399.0" promptText="PlayerB Name" />
+      <Button fx:id="clr_text_fields" layoutX="638.0" layoutY="371.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" onAction="#clr" text="Clear" />
    </children>
 </Pane>

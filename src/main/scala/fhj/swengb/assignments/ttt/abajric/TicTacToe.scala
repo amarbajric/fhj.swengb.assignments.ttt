@@ -3,6 +3,7 @@ package fhj.swengb.assignments.ttt.abajric
 import java.io
 
 import scala.collection.Set
+import scala.util.Random
 
 /**
   * models the different moves the game allows
@@ -68,7 +69,6 @@ object TicTacToe {
   def main(args: Array[String]) {
 
     val t = TicTacToe().turn(BottomRight, PlayerA).turn(BottomCenter,PlayerB).turn(BottomLeft, PlayerA).turn(MiddleCenter,PlayerA).turn(MiddleRight,PlayerB)
-      .turn(MiddleLeft,PlayerB).turn(TopCenter,PlayerA).turn(TopRight,PlayerB).turn(TopLeft,PlayerB)
 
     //test output
     print(t.asString())
