@@ -47,5 +47,11 @@ class TicTacToeTest {
 
   // implement yourself more tests
 
+  @Test def checkRemainingMoves(): Unit = {
+    val game = TicTacToe(Map(TopLeft -> PlayerA,MiddleCenter -> PlayerB, BottomRight -> PlayerA))
+    assertEquals(game.remainingMoves.size,6)
+    assertEquals(game.moveHistory.size,3)
+  }
+
 }
 
