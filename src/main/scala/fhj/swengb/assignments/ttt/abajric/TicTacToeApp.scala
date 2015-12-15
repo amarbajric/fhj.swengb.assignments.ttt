@@ -155,21 +155,28 @@ class TicTacToeAppController extends Initializable {
           case spGame: Button if spGame == btn_newGame=> {
 
             if(!text_field_p1.getText().trim().isEmpty && !text_field_p2.getText().trim().isEmpty ) {
-              //disabling the textfields after the button is clicked
-              text_field_p1.setDisable(true)
-              text_field_p2.setDisable(true)
-              newGame = TicTacToe.apply()
-              grid_pane.setDisable(false)
-              iv_bottomcenter.setImage(null)
-              iv_bottomleft.setImage(null)
-              iv_bottomright.setImage(null)
-              iv_middleleft.setImage(null)
-              iv_middlecenter.setImage(null)
-              iv_middleright.setImage(null)
-              iv_topleft.setImage(null)
-              iv_topcenter.setImage(null)
-              iv_topright.setImage(null)
-              log_msg.setText("New MPGame loaded!")
+              if(text_field_p1.getText().trim == text_field_p2.getText().trim){
+                log_msg.setText("Players should have different names!")
+              }
+              else {
+                //disabling the textfields after the button is clicked
+                text_field_p1.setDisable(true)
+                text_field_p2.setDisable(true)
+                //enabling gridpane
+                grid_pane.setDisable(false)
+                newGame = TicTacToe.apply()
+                grid_pane.setDisable(false)
+                iv_bottomcenter.setImage(null)
+                iv_bottomleft.setImage(null)
+                iv_bottomright.setImage(null)
+                iv_middleleft.setImage(null)
+                iv_middlecenter.setImage(null)
+                iv_middleright.setImage(null)
+                iv_topleft.setImage(null)
+                iv_topcenter.setImage(null)
+                iv_topright.setImage(null)
+                log_msg.setText("New MPGame loaded!")
+              }
             }
             else
               log_msg.setText("Please enter your names first!")
@@ -245,6 +252,9 @@ def initializePane(): Unit = {
   //initialize Switch Buttons
   switch_button.setToggleGroup(group)
   switch_button.setSelected(false)
+
+  //disable the grid pane at beginning till any button is clicked
+  grid_pane.setDisable(true)
 
   //initialize button for new Game
   btn_newGame.setOnMouseClicked(mouseEventHandler)
