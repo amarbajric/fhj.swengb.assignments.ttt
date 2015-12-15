@@ -78,6 +78,11 @@ class TicTacToeAppController extends Initializable {
     initializePane()
   }
 
+
+  //the two symbols which are set as a new image when a turn is made
+  val urlX :String = "fhj/swengb/assignments/ttt/symbolX.png"
+  val urlO : String = "fhj/swengb/assignments/ttt/symbolO.png"
+
   //val styleOrange: String = "-fx-background-color: orange;\n    -fx-border-color: black;\n    -fx-border-width: 0.1pt;"
   val styleRed: String = "-fx-background-color: linear-gradient(#ff5400, #be1d00);\n   -fx-background-insets: 0;\n    -fx-text-fill: white;"
   val grayStyle: String = "-fx-background-color: #D3D3D3;\n    -fx-border-color: black;\n    -fx-border-width: 0.1pt;"
@@ -96,7 +101,7 @@ class TicTacToeAppController extends Initializable {
   })
 
 
-
+    //eventhandler for showing shadow effects while hoovering
   val effect: EventHandler[_ >: MouseEvent] = new EventHandler[MouseEvent] {
     override def handle(event: MouseEvent): Unit = {
       event.getSource match {
@@ -110,49 +115,48 @@ class TicTacToeAppController extends Initializable {
   //initializes a new game
   var newGame = TicTacToe.apply()
 
+  //the map is needed in order to check the userData behind every ImageView with this map to set the next turn and the image at the right place (mouseeventhadler)
+  val checkMap: Map[Int, (ImageView, TMove)] = Map(0 -> (iv_topleft,TopLeft), 1 -> (iv_topcenter,TopCenter), 2 -> (iv_topright,TopRight), 3 -> (iv_middleleft,MiddleLeft),
+    4 -> (iv_middlecenter,MiddleCenter),5 -> (iv_middleright,MiddleRight), 6 -> (iv_bottomleft,BottomLeft), 7 -> (iv_bottomcenter,BottomCenter), 8 -> (iv_bottomright,BottomRight))
 
   //eventhandler for onclick
     val mouseEventHandler: EventHandler[_ >: MouseEvent] = new EventHandler[MouseEvent] {
 
       override def handle(event: MouseEvent): Unit = {
         event.getSource match {
-          case mpGame: ImageView => {
+          case onclick: ImageView => {
 
             if (newGame.gameOver)
               gameOver()
 
             else if (newGame.nextPlayer == PlayerA) {
-              mpGame match {
-                case tl if tl == iv_topleft && newGame.remainingMoves.contains(TopLeft) => setPicture(iv_topleft, true); newGame = newGame.turn(TopLeft, newGame.nextPlayer); gameOver()
-                case tc if tc == iv_topcenter && newGame.remainingMoves.contains(TopCenter) => setPicture(iv_topcenter, true); newGame = newGame.turn(TopCenter, newGame.nextPlayer); gameOver()
-                case tr if tr == iv_topright && newGame.remainingMoves.contains(TopRight) => setPicture(iv_topright, true); newGame = newGame.turn(TopRight, newGame.nextPlayer); gameOver()
-                case ml if ml == iv_middleleft && newGame.remainingMoves.contains(MiddleLeft) => setPicture(iv_middleleft, true); newGame = newGame.turn(MiddleLeft, newGame.nextPlayer); gameOver()
-                case mc if mc == iv_middlecenter && newGame.remainingMoves.contains(MiddleCenter) => setPicture(iv_middlecenter, true); newGame = newGame.turn(MiddleCenter, newGame.nextPlayer); gameOver()
-                case mr if mr == iv_middleright && newGame.remainingMoves.contains(MiddleRight) => setPicture(iv_middleright, true); newGame = newGame.turn(MiddleRight, newGame.nextPlayer); gameOver()
-                case bl if bl == iv_bottomleft && newGame.remainingMoves.contains(BottomLeft) => setPicture(iv_bottomleft, true); newGame = newGame.turn(BottomLeft, newGame.nextPlayer); gameOver()
-                case bc if bc == iv_bottomcenter && newGame.remainingMoves.contains(BottomCenter) => setPicture(iv_bottomcenter, true); newGame = newGame.turn(BottomCenter, newGame.nextPlayer); gameOver()
-                case br if br == iv_bottomright && newGame.remainingMoves.contains(BottomRight) => setPicture(iv_bottomright, true); newGame = newGame.turn(BottomRight, newGame.nextPlayer); gameOver()
-                case _ => log_msg.setText("Field already set!")
+              val l = checkMap.get(onclick.getUserData.toString.toInt)
+              val x = checkMap.get(onclick.getUserData.toString.toInt)
+
+              if(newGame.remainingMoves.contains(l.get._2)){
+                onclick.setImage(new Image(urlX))
+                newGame = newGame.turn(l.get._2,newGame.nextPlayer)
+                log_msg.setText(s"${text_field_p2.getText.toUpperCase()} - its your turn!")
+                gameOver()
               }
-            }
-            else if (newGame.nextPlayer == PlayerB) {
-              mpGame match {
-                case tl if tl == iv_topleft && newGame.remainingMoves.contains(TopLeft) => setPicture(iv_topleft, false); newGame = newGame.turn(TopLeft, newGame.nextPlayer); gameOver()
-                case tc if tc == iv_topcenter && newGame.remainingMoves.contains(TopCenter) => setPicture(iv_topcenter, false); newGame = newGame.turn(TopCenter, newGame.nextPlayer); gameOver()
-                case tr if tr == iv_topright && newGame.remainingMoves.contains(TopRight) => setPicture(iv_topright, false); newGame = newGame.turn(TopRight, newGame.nextPlayer); gameOver()
-                case ml if ml == iv_middleleft && newGame.remainingMoves.contains(MiddleLeft) => setPicture(iv_middleleft, false); newGame = newGame.turn(MiddleLeft, newGame.nextPlayer); gameOver()
-                case mc if mc == iv_middlecenter && newGame.remainingMoves.contains(MiddleCenter) => setPicture(iv_middlecenter, false); newGame = newGame.turn(MiddleCenter, newGame.nextPlayer); gameOver()
-                case mr if mr == iv_middleright && newGame.remainingMoves.contains(MiddleRight) => setPicture(iv_middleright, false); newGame = newGame.turn(MiddleRight, newGame.nextPlayer); gameOver()
-                case bl if bl == iv_bottomleft && newGame.remainingMoves.contains(BottomLeft) => setPicture(iv_bottomleft, false); newGame = newGame.turn(BottomLeft, newGame.nextPlayer); gameOver()
-                case bc if bc == iv_bottomcenter && newGame.remainingMoves.contains(BottomCenter) => setPicture(iv_bottomcenter, false); newGame = newGame.turn(BottomCenter, newGame.nextPlayer); gameOver()
-                case br if br == iv_bottomright && newGame.remainingMoves.contains(BottomRight) => setPicture(iv_bottomright, false); newGame = newGame.turn(BottomRight, newGame.nextPlayer); gameOver()
-                case _ => log_msg.setText("Field already set!")
+              else
+                log_msg.setText("Field already set!")
               }
 
-            }
+            else if (newGame.nextPlayer == PlayerB) {
+
+              if(newGame.remainingMoves.contains(checkMap(onclick.getUserData.toString.toInt)._2)){
+                onclick.setImage(new Image(urlO))
+                newGame = newGame.turn(checkMap(onclick.getUserData.toString.toInt)._2,newGame.nextPlayer)
+                log_msg.setText(s"${text_field_p1.getText.toUpperCase} - its your turn!")
+                gameOver()
+              }
+              else
+                log_msg.setText("Field already set!")
+              }
           }
 
-          case spGame: Button if spGame == btn_newGame=> {
+          case btnGame: Button if btn_newGame == btn_newGame => {
 
             if(!text_field_p1.getText().trim().isEmpty && !text_field_p2.getText().trim().isEmpty ) {
               if(text_field_p1.getText().trim == text_field_p2.getText().trim){
@@ -217,22 +221,6 @@ class TicTacToeAppController extends Initializable {
   }
 
 
-  def setPicture(iv: ImageView,pic: Boolean): Unit = {
-    val urlX :String = "fhj/swengb/assignments/ttt/symbolX.png"
-    val urlO : String = "fhj/swengb/assignments/ttt/symbolO.png"
-    //if pic is true then set an "X"!!
-    if (pic) {
-      iv.setImage(new Image(urlX))
-      iv.setFitHeight(190)
-      iv.setFitWidth(190)
-    }
-    else {
-      iv.setImage(new Image(urlO))
-      iv.setFitHeight(190)
-      iv.setFitWidth(190)
-    }
-    }
-
   //clears the textfields
   def clr(): Unit = {
     text_field_p1.clear()
@@ -240,18 +228,18 @@ class TicTacToeAppController extends Initializable {
   }
 
 
-lazy val initPic : String = ""
+
 def initializePane(): Unit = {
   //initialize the Board
-  iv_topleft.setOnMouseClicked(mouseEventHandler) ;iv_topleft.setOnMouseEntered(effect) ;iv_topleft.setOnMouseExited(effect)
-  iv_topcenter.setOnMouseClicked(mouseEventHandler); iv_topcenter.setOnMouseEntered(effect); iv_topcenter.setOnMouseExited(effect)
-  iv_topright.setOnMouseClicked(mouseEventHandler); iv_topright.setOnMouseEntered(effect); iv_topright.setOnMouseExited(effect)
-  iv_middleleft.setOnMouseClicked(mouseEventHandler); iv_middleleft.setOnMouseEntered(effect); iv_middleleft.setOnMouseExited(effect)
-  iv_middlecenter.setOnMouseClicked(mouseEventHandler); iv_middlecenter.setOnMouseEntered(effect); iv_middlecenter.setOnMouseExited(effect)
-  iv_middleright.setOnMouseClicked(mouseEventHandler) ; iv_middleright.setOnMouseEntered(effect); iv_middleright.setOnMouseExited(effect)
-  iv_bottomleft.setOnMouseClicked(mouseEventHandler) ; iv_bottomleft.setOnMouseEntered(effect); iv_bottomleft.setOnMouseExited(effect)
-  iv_bottomcenter.setOnMouseClicked(mouseEventHandler) ; iv_bottomcenter.setOnMouseEntered(effect); iv_bottomcenter.setOnMouseExited(effect)
-  iv_bottomright.setOnMouseClicked(mouseEventHandler) ;  iv_bottomright.setOnMouseClicked(mouseEventHandler) ; iv_bottomright.setOnMouseExited(effect)
+  iv_topleft.setOnMouseClicked(mouseEventHandler) ;iv_topleft.setOnMouseEntered(effect) ;iv_topleft.setOnMouseExited(effect); iv_topleft.setUserData(0)
+  iv_topcenter.setOnMouseClicked(mouseEventHandler); iv_topcenter.setOnMouseEntered(effect); iv_topcenter.setOnMouseExited(effect) ; iv_topcenter.setUserData(1)
+  iv_topright.setOnMouseClicked(mouseEventHandler); iv_topright.setOnMouseEntered(effect); iv_topright.setOnMouseExited(effect); iv_topright.setUserData(2)
+  iv_middleleft.setOnMouseClicked(mouseEventHandler); iv_middleleft.setOnMouseEntered(effect); iv_middleleft.setOnMouseExited(effect); iv_middleleft.setUserData(3)
+  iv_middlecenter.setOnMouseClicked(mouseEventHandler); iv_middlecenter.setOnMouseEntered(effect); iv_middlecenter.setOnMouseExited(effect); iv_middlecenter.setUserData(4)
+  iv_middleright.setOnMouseClicked(mouseEventHandler) ; iv_middleright.setOnMouseEntered(effect); iv_middleright.setOnMouseExited(effect); iv_middleright.setUserData(5)
+  iv_bottomleft.setOnMouseClicked(mouseEventHandler) ; iv_bottomleft.setOnMouseEntered(effect); iv_bottomleft.setOnMouseExited(effect); iv_bottomleft.setUserData(6)
+  iv_bottomcenter.setOnMouseClicked(mouseEventHandler) ; iv_bottomcenter.setOnMouseEntered(effect); iv_bottomcenter.setOnMouseExited(effect); iv_bottomcenter.setUserData(7)
+  iv_bottomright.setOnMouseClicked(mouseEventHandler) ;  iv_bottomright.setOnMouseClicked(mouseEventHandler) ; iv_bottomright.setOnMouseExited(effect); iv_bottomright.setUserData(8)
 
   //initialize Switch Buttons
   switch_button.setToggleGroup(group)
