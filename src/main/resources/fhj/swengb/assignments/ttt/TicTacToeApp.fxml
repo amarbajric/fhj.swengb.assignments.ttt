@@ -43,7 +43,7 @@
          <font>
             <Font size="21.0" />
          </font></Label>
-      <Button fx:id="btn_newGame_sp" disable="true" layoutX="873.0" layoutY="209.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="123.0" text="New Game (vs. Bot)" />
+      <Button fx:id="btn_newGame_sp" layoutX="873.0" layoutY="209.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="123.0" text="New Game (vs. Bot)" />
       <ImageView fx:id="image_view_p1" fitHeight="40.0" fitWidth="40.0" layoutX="862.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="image_view_p2" fitHeight="40.0" fitWidth="40.0" layoutX="867.0" layoutY="391.0" pickOnBounds="true" preserveRatio="true" />
       <TextField fx:id="text_field_p1" layoutX="701.0" layoutY="350.0" promptText="PlayerA Name" />

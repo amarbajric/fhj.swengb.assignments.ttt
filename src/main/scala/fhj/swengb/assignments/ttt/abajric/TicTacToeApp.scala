@@ -69,7 +69,7 @@ class TicTacToeAppController extends Initializable {
   @FXML var switch_button: ToggleButton = _
   @FXML var clr_text_fields: Button = _
   @FXML var btn_newGame: Button = _
-  //@FXML var btn_newGame_sp: Button = _
+  @FXML var btn_newGame_sp: Button = _
   @FXML var log_msg: Label = _
 
   val dropShadow = new DropShadow()
@@ -107,6 +107,8 @@ class TicTacToeAppController extends Initializable {
       event.getSource match {
         case hoover: ImageView if hoover.getEffect == null => hoover.setEffect(dropShadow)
         case exit: ImageView if exit.getEffect != null => exit.setEffect(null)
+        case hooverButton: Button if hooverButton.getEffect == null => hooverButton.setEffect(dropShadow)
+        case noHooverButton: Button if noHooverButton.getEffect != null => noHooverButton.setEffect(null)
         case _ => assert(false)
       }
     }
@@ -114,6 +116,8 @@ class TicTacToeAppController extends Initializable {
 
   //initializes a new game
   var newGame = TicTacToe.apply()
+
+  //var singleplayer: Boolean = true
 
   //the map is needed in order to check the userData behind every ImageView with this map to set the next turn and the image at the right place (mouseeventhadler)
   val checkMap: Map[Int, (ImageView, TMove)] = Map(0 -> (iv_topleft,TopLeft), 1 -> (iv_topcenter,TopCenter), 2 -> (iv_topright,TopRight), 3 -> (iv_middleleft,MiddleLeft),
@@ -130,39 +134,53 @@ class TicTacToeAppController extends Initializable {
               gameOver()
 
             else if (newGame.nextPlayer == PlayerA) {
-              val l = checkMap.get(onclick.getUserData.toString.toInt)
-              val x = checkMap.get(onclick.getUserData.toString.toInt)
+              val tmoveA = checkMap.get(onclick.getUserData.toString.toInt)
 
-              if(newGame.remainingMoves.contains(l.get._2)){
+              if(newGame.remainingMoves.contains(tmoveA.get._2)){
                 onclick.setImage(new Image(urlX))
-                newGame = newGame.turn(l.get._2,newGame.nextPlayer)
+                newGame = newGame.turn(tmoveA.get._2,newGame.nextPlayer)
                 log_msg.setText(s"${text_field_p2.getText.toUpperCase()} - its your turn!")
                 gameOver()
+
+                /*
+                if(singleplayer)
+                  bot()
+                  */
               }
               else
                 log_msg.setText("Field already set!")
               }
 
-            else if (newGame.nextPlayer == PlayerB) {
+            else if (newGame.nextPlayer == PlayerB /* && !singleplayer */) {
+              val tmoveB = checkMap.get(onclick.getUserData.toString.toInt)
 
-              if(newGame.remainingMoves.contains(checkMap(onclick.getUserData.toString.toInt)._2)){
+              if(newGame.remainingMoves.contains(tmoveB.get._2)){
                 onclick.setImage(new Image(urlO))
-                newGame = newGame.turn(checkMap(onclick.getUserData.toString.toInt)._2,newGame.nextPlayer)
+                newGame = newGame.turn(tmoveB.get._2,newGame.nextPlayer)
                 log_msg.setText(s"${text_field_p1.getText.toUpperCase} - its your turn!")
                 gameOver()
               }
               else
                 log_msg.setText("Field already set!")
               }
+
+              /*
+            else if (singleplayer) {
+              bot()
+              gameOver()
+            }
+            */
           }
 
-          case btnGame: Button if btn_newGame == btn_newGame => {
+          case mpGame: Button if mpGame == btn_newGame => {
 
             if(!text_field_p1.getText().trim().isEmpty && !text_field_p2.getText().trim().isEmpty ) {
               if(text_field_p1.getText().trim == text_field_p2.getText().trim){
                 log_msg.setText("Players should have different names!")
               }
               else {
+                //multiplayer so the singleplayer-mode is deactivated
+                //singleplayer = false
                 //disabling the textfields after the button is clicked
                 text_field_p1.setDisable(true)
                 text_field_p2.setDisable(true)
@@ -187,6 +205,38 @@ class TicTacToeAppController extends Initializable {
             else
               log_msg.setText("Please enter your names first!")
           }
+
+            /*
+          case spGame : Button if spGame == btn_newGame_sp => {
+
+            if(text_field_p1.getText().trim().isEmpty) {
+              log_msg.setText("Please enter your name!")
+              text_field_p2.setDisable(true)
+            }
+            else {
+              singleplayer = true
+              text_field_p1.setDisable(true)
+              text_field_p2.setDisable(true)
+              //enabling gridpane
+              grid_pane.setDisable(false)
+              //disabling the clear button
+              clr_text_fields.setDisable(true)
+              newGame = TicTacToe.apply()
+              grid_pane.setDisable(false)
+              iv_bottomcenter.setImage(null)
+              iv_bottomleft.setImage(null)
+              iv_bottomright.setImage(null)
+              iv_middleleft.setImage(null)
+              iv_middlecenter.setImage(null)
+              iv_middleright.setImage(null)
+              iv_topleft.setImage(null)
+              iv_topcenter.setImage(null)
+              iv_topright.setImage(null)
+              log_msg.setText("New SPGame loaded!")
+            }
+          }
+          */
+
           case _ => assert(false)
         }
       }
@@ -220,6 +270,19 @@ class TicTacToeAppController extends Initializable {
     }
   }
 
+  //doesn't work due to NullPointerException Errors when setting the picture on the field...
+  /*
+  def bot(): Unit = {
+    log_msg.setText("Computer is thinking...")
+    Thread.sleep(1000)
+    val get: TMove = Random.shuffle(newGame.remainingMoves).last
+    newGame = newGame.turn(get,PlayerB)
+    val l: Option[(ImageView, TMove)] = checkMap.values.find(_._2.equals(get))
+    l.get._1.setImage(new Image(urlO))
+    log_msg.setText(s"${text_field_p1.getText.toUpperCase} - its your turn!")
+  }
+  */
+
 
   //clears the textfields
   def clr(): Unit = {
@@ -249,8 +312,8 @@ def initializePane(): Unit = {
   grid_pane.setDisable(true)
 
   //initialize button for new Game
-  btn_newGame.setOnMouseClicked(mouseEventHandler)
-  //btn_newGame_sp.setMouseClicked(mouseEventHandler)
+  btn_newGame.setOnMouseClicked(mouseEventHandler) ; btn_newGame.setOnMouseEntered(effect); btn_newGame.setOnMouseExited(effect)
+  //btn_newGame_sp.setOnMouseClicked(mouseEventHandler); btn_newGame_sp.setOnMouseEntered(effect) ; btn_newGame_sp.setOnMouseExited(effect)
 
   //initialize the input and small images for the two players
   log_msg.setText("Enter your names and click on New Game!")
