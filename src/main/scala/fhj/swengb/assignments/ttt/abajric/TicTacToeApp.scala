@@ -1,7 +1,6 @@
 package fhj.swengb.assignments.ttt.abajric
 
 
-
 import javafx.beans.value.{ObservableValue, ChangeListener}
 import javafx.event.EventHandler
 import javafx.scene.control._
@@ -68,6 +67,7 @@ class TicTacToeAppController extends Initializable {
   @FXML var text_field_p1: TextField = _
   @FXML var text_field_p2: TextField = _
   @FXML var switch_button: ToggleButton = _
+  @FXML var clr_text_fields: Button = _
   @FXML var btn_newGame: Button = _
   //@FXML var btn_newGame_sp: Button = _
   @FXML var log_msg: Label = _
@@ -164,6 +164,8 @@ class TicTacToeAppController extends Initializable {
                 text_field_p2.setDisable(true)
                 //enabling gridpane
                 grid_pane.setDisable(false)
+                //disabling the clear button
+                clr_text_fields.setDisable(true)
                 newGame = TicTacToe.apply()
                 grid_pane.setDisable(false)
                 iv_bottomcenter.setImage(null)
@@ -195,6 +197,8 @@ class TicTacToeAppController extends Initializable {
       //the textfields are getting enabled again to maybe insert new Playernames
       text_field_p1.setDisable(false)
       text_field_p2.setDisable(false)
+      //enable the clear button again
+      clr_text_fields.setDisable(false)
 
       if(!newGame.checkIfWon(PlayerA) && !newGame.checkIfWon(PlayerB)) {
         log_msg.setText("It's a draw!")

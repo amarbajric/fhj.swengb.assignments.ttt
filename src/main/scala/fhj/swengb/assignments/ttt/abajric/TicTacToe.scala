@@ -56,11 +56,10 @@ case object BottomRight extends TMove {
   */
 sealed trait Player
 
-case object PlayerA extends Player
+ case object PlayerA extends Player
 
-case object PlayerB extends Player
+ case object PlayerB extends Player
 
-case object Blank extends Player
 
 
 object TicTacToe {
@@ -87,7 +86,7 @@ object TicTacToe {
     *
     * @return
     */
-  def apply(): TicTacToe = TicTacToe(Map(),PlayerA)
+  def apply(): TicTacToe = TicTacToe(Map())
 
   /**
     * For a given tic tac toe game, this function applies all moves to the game.
@@ -125,7 +124,7 @@ object TicTacToe {
     * The nextplayer parameter defines which player makes the next move.
     */
 }
-case class TicTacToe(moveHistory: Map[TMove, Player],
+ case class TicTacToe(moveHistory: Map[TMove, Player],
                      nextPlayer: Player = PlayerA) {
 
 
@@ -268,6 +267,7 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
       TicTacToe(this.moveHistory, nextPlayer)
     }
   }
+
 
 }
 
