@@ -3,7 +3,6 @@ package fhj.swengb.assignments.ttt.abajric
 import java.io
 
 import scala.collection.Set
-import scala.util.Random
 
 /**
   * models the different moves the game allows
@@ -68,7 +67,6 @@ object TicTacToe {
   def main(args: Array[String]) {
 
     val t = TicTacToe().turn(BottomRight, PlayerA).turn(BottomCenter,PlayerB).turn(BottomLeft, PlayerA).turn(MiddleCenter,PlayerA).turn(MiddleRight,PlayerB)
-
     //test output
     print(t.asString())
     println("RemainingMoves: " + t.remainingMoves)
@@ -126,6 +124,7 @@ object TicTacToe {
 }
  case class TicTacToe(moveHistory: Map[TMove, Player],
                      nextPlayer: Player = PlayerA) {
+
 
 
   /**
@@ -203,6 +202,7 @@ object TicTacToe {
       true
     else
       false
+
   }
 
   /**
